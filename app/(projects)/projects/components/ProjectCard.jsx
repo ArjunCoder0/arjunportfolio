@@ -18,7 +18,7 @@ export const ProjectCard = ({ project, index }) => (
                     loading="lazy"
                     className="object-cover w-full h-full transform group-hover:scale-105 transition-transform duration-300"
                 />
-                <div className="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition-colors duration-300" />
+                <div className="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition-colors duration-300 pointer-events-none" />
             </div>
         </div>
 
@@ -49,22 +49,53 @@ export const ProjectCard = ({ project, index }) => (
                 </div>
             </div>
 
-            <div className="flex items-center gap-3 pt-4">
-                <Button
-                    size="sm"
-                    className="rounded-full h-8 px-4 text-xs"
-                    asChild
-                >
+            <div className="flex items-center gap-3 pt-4 relative z-10">
+                {project.demo && project.demo !== '#' ? (
                     <a
                         href={project.demo}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="flex items-center gap-2"
+                        className="inline-block"
                     >
-                        Live Demo
-                        <FaExternalLinkAlt className="w-3 h-3" />
+                        <Button
+                            size="sm"
+                            className="rounded-full h-8 px-4 text-xs touch-manipulation"
+                        >
+                            <span className="flex items-center gap-2">
+                                Live Demo
+                                <FaExternalLinkAlt className="w-3 h-3" />
+                            </span>
+                        </Button>
                     </a>
-                </Button>
+                ) : (
+                    <Button
+                        size="sm"
+                        className="rounded-full h-8 px-4 text-xs opacity-50 cursor-not-allowed"
+                        disabled
+                    >
+                        Demo Coming Soon
+                    </Button>
+                )}
+                
+                {project.github && project.github !== '#' && (
+                    <a
+                        href={project.github}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-block"
+                    >
+                        <Button
+                            size="sm"
+                            variant="outline"
+                            className="rounded-full h-8 px-4 text-xs touch-manipulation"
+                        >
+                            <span className="flex items-center gap-2">
+                                GitHub
+                                <FaExternalLinkAlt className="w-3 h-3" />
+                            </span>
+                        </Button>
+                    </a>
+                )}
             </div>
         </div>
     </motion.div>
